@@ -26,17 +26,39 @@ void main(void) {
   PTFPE = 0xFF;                           // Enable PORT F Internal Pullups
   PTGPE = 0x0F;                           // Enable PTG0/1/2/3 Internal Pullups
   PTHPE = 0xC3;                           // Enable PTH0/1/6/7 Internal Pullups
- 
+  
+  byte done = 0x00;
+  ADCSC1 = 0x1F;                          /* Disable interrupts 
+                                             Disable continuous conversions
+                                             Disable ADC by setting all ADCH bits */
+  ADCSC2 = 0x40;                          /* Select H/W trigger
+                                             Disable compare function */
+  ADCCFG = 0x07; 	                        /* ADIV=input clock/8
+                                             ADLSMP=long sample time
+                                             MODE=8-bit conversion
+                                             ADICLK=async clock */
+  APCTL1 = 0x01;                          // Enable ADP0 as ADC input
+  
+  RTCMOD = 0x01;                          // set ADC conversion period
+  RTCSC  = 0x0B;                          // 10ms period, no interrupt
+  
+  ADCSC1_AIEN = 0x01;
+  ADCSC1_ADCH = 0x00;
+  
   PTEDD = 0xFF;
   PTCDD = 0xFF;
   PTCD = 0xFF;
   
+  
+  
   EnableInterrupts; /* enable interrupts */
   
-  
-  TPM1MODH = 0x3E;
-  TPM1MODL = 0x80;
-  TPM1SC = 0b01101111;
+  TPM1MODH = 0x09;
+  TPM1MODL = 0x00;
+  TPM1SC = 0b00101000;
+  TPM1C1SC = 0x24;
+  TPM1C1VH = 0x04;
+  TPM1C1VL = 0x80;
   TPM3MODH = 0x7D;
   TPM3MODL = 0x00;
   TPM3C0SC = 0x24;
@@ -74,7 +96,7 @@ void main(void) {
   /* please make sure that you never leave main */
 }
 
-interrupt VectorNumber_Vtpm1ovf void TMP1_OVF_ISR(void){
+/*interrupt VectorNumber_Vtpm1ovf void TMP1_OVF_ISR(void){
   
  //control++;
 // if(control >= 2){
@@ -85,4 +107,36 @@ interrupt VectorNumber_Vtpm1ovf void TMP1_OVF_ISR(void){
  PTED_PTED7 = 0;
  TPM1SC_TOF=0;
 PTCD= (byte) (0xFF-((control) & 0xFF));
-}         
+} */
+interrupt VectorNumber_Vadc void   ADC_ISR(void) {
+
+  word adc_val;
+    
+  adc_val  = (word) (ADCRH<<8);                     // Read ADC value, clear flag
+  adc_val |= (word) (ADCRL);                       // 8-bit, ignore high byte
+  /*word duty;
+  duty= (adc_val*100)/0x0FFF;
+  word MOD=0x7D00;
+  word val;
+  if (MOD>100){
+              val = (adc_val*100)/0x0FFF*(MOD/100);
+           }
+           else {
+              val = (adc_val*100)/0x0FFF*MOD/100;
+           }                       */
+  word uu=(word)(0x05F3+adc_val);
+  word vv= (word)(uu>>1);
+  TPM1MODH = (byte) (uu>>8);
+  TPM1MODL = (byte) (uu);
+  TPM1C0VH = (byte) (vv>>8);
+  TPM1C0VL = (byte) (vv);
+} 
+interrupt VectorNumber_Vrtc void   RTC_ISR(void) {
+  /*if (some_key_pressed) {
+     RTCMOD = 0x01;                       // set period 10ms
+     RTCSC  = 0x0B;                       // Disable RTIE
+     key_press_debounced = yes;
+  }     */
+  RTCSC_RTIF = 1;                         // clear flag
+}
+        

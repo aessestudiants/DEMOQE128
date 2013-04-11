@@ -209,7 +209,7 @@
   00000110 00000004 .abs    vector_68	(exceptions.c)
 
 # .abs_vector_69
-  00000114 00000004 .abs    vector_69	(main.c)
+  00000114 00000004 .abs    vector_69	(exceptions.c)
 
 # .abs_vector_70
   00000118 00000004 .abs    vector_70	(exceptions.c)
@@ -245,7 +245,7 @@
   00000140 00000004 .abs    vector_80	(exceptions.c)
 
 # .abs_vector_81
-  00000144 00000004 .abs    vector_81	(exceptions.c)
+  00000144 00000004 .abs    vector_81	(main.c)
 
 # .abs_vector_82
   00000148 00000004 .abs    vector_82	(exceptions.c)
@@ -260,7 +260,7 @@
   00000154 00000004 .abs    vector_85	(exceptions.c)
 
 # .abs_vector_86
-  00000158 00000004 .abs    vector_86	(exceptions.c)
+  00000158 00000004 .abs    vector_86	(main.c)
 
 # .abs_vector_87
   0000015C 00000004 .abs    vector_87	(exceptions.c)
@@ -321,22 +321,23 @@
 # .code
 
 # .text
-  00000410 000000D2 .text   main	(main.c)
-  000004E2 0000003C .text   TMP1_OVF_ISR	(main.c)
-  0000051E 00000002 .text   __initialize_hardware	(startcf.c)
-  00000520 00000002 .text   __initialize_system	(startcf.c)
-  00000522 0000001C .text   __copy_rom_section	(startcf.c)
-  0000053E 00000034 .text   __copy_rom_sections_to_ram	(startcf.c)
-  00000572 00000004 .text   _ExitProcess	(startcf.c)
-  00000576 00000064 .text   clear_mem	(startcf.c)
-  000005DA 00000090 .text   _startup	(startcf.c)
-  0000066A 000001BC .text   mcf_exception_handler	(exceptions.c)
-  00000826 00000020 .text   asm_exception_handler	(exceptions.c)
-  00000846 0000001C .text   __call_static_initializers	(librt.a cf_staticinitia)
-  00000862 0000002C .text   __destroy_global_chain	(librt.a cf_staticinitia)
-  0000088E 0000000C .text   _ewl_exit	(librt.a abort_exit.o   )
-#>0000089C          ___ROM_AT (linker command file)
-#>0000089C          ___DATA_ROM (linker command file)
+  00000410 00000114 .text   main	(main.c)
+  00000524 00000042 .text   ADC_ISR	(main.c)
+  00000566 0000000C .text   RTC_ISR	(main.c)
+  00000572 00000002 .text   __initialize_hardware	(startcf.c)
+  00000574 00000002 .text   __initialize_system	(startcf.c)
+  00000576 0000001C .text   __copy_rom_section	(startcf.c)
+  00000592 00000034 .text   __copy_rom_sections_to_ram	(startcf.c)
+  000005C6 00000004 .text   _ExitProcess	(startcf.c)
+  000005CA 00000064 .text   clear_mem	(startcf.c)
+  0000062E 00000090 .text   _startup	(startcf.c)
+  000006BE 000001BC .text   mcf_exception_handler	(exceptions.c)
+  0000087A 00000020 .text   asm_exception_handler	(exceptions.c)
+  0000089A 0000001C .text   __call_static_initializers	(librt.a cf_staticinitia)
+  000008B6 0000002C .text   __destroy_global_chain	(librt.a cf_staticinitia)
+  000008E2 0000000C .text   _ewl_exit	(librt.a abort_exit.o   )
+#>000008F0          ___ROM_AT (linker command file)
+#>000008F0          ___DATA_ROM (linker command file)
 
 # .data
 #>00800000          ___DATA_RAM (linker command file)
@@ -358,27 +359,26 @@
 # .bss
 #>00800008          ___BSS_START (linker command file)
 #>00800008          __START_SBSS (linker command file)
-  00800008 00000004 .sbss   control	(main.c)
-#>0080000C          __END_SBSS (linker command file)
-#>0080000C          __START_BSS (linker command file)
-  0080000C 00000004 .bss    __global_destructor_chain	(librt.a cf_staticinitia)
-#>00800010          __END_BSS (linker command file)
-#>00800010          ___BSS_END (linker command file)
+#>00800008          __END_SBSS (linker command file)
+#>00800008          __START_BSS (linker command file)
+  00800008 00000004 .bss    __global_destructor_chain	(librt.a cf_staticinitia)
+#>0080000C          __END_BSS (linker command file)
+#>0080000C          ___BSS_END (linker command file)
 
 # .custom
-#>00800010          ___HEAP_START (linker command file)
-#>00800010          ___heap_addr (linker command file)
-#>00800410          ___HEAP_END (linker command file)
-#>00800410          ___SP_END (linker command file)
-#>00800810          ___SP_INIT (linker command file)
-#>00800410          ___mem_limit (linker command file)
+#>0080000C          ___HEAP_START (linker command file)
+#>0080000C          ___heap_addr (linker command file)
+#>0080040C          ___HEAP_END (linker command file)
+#>0080040C          ___SP_END (linker command file)
+#>0080080C          ___SP_INIT (linker command file)
+#>0080040C          ___mem_limit (linker command file)
 #>00000010          ___stack_safety (linker command file)
-#>00800810          __SP_INIT (linker command file)
-#>00800810          ___SP_AFTER_RESET (linker command file)
-#>000008A4          _romp_at (linker command file)
+#>0080080C          __SP_INIT (linker command file)
+#>0080080C          ___SP_AFTER_RESET (linker command file)
+#>000008F8          _romp_at (linker command file)
 
 # .romp
-#>000008A4          __S_romp (linker command file)
+#>000008F8          __S_romp (linker command file)
 
 
 # Memory map:
@@ -487,12 +487,12 @@
   00000194 00000194 00000004 .abs_vector_101 abs_vector_101
   00000198 00000198 00000004 .abs_vector_102 abs_vector_102
   00000410 00000410 00000000 .code      code
-  00000410 00000410 0000048C .text      code
+  00000410 00000410 000004E0 .text      code
   00800000 00800000 00000000 .userram   userram
-  00800000 0000089C 00000008 .data      userram
-  00800008 00800008 00000008 .bss       userram
-  00800010 00800010 00000000 .custom    userram
-  00800010 000008A4 00000018 .romp      userram
+  00800000 000008F0 00000008 .data      userram
+  00800008 00800008 00000004 .bss       userram
+  0080000C 0080000C 00000000 .custom    userram
+  0080000C 000008F8 00000018 .romp      userram
 
-# Link start time: Mon Mar 25 18:13:26 2013
-# Link end time: Mon Mar 25 18:13:26 2013
+# Link start time: Thu Apr 11 21:24:16 2013
+# Link end time: Thu Apr 11 21:24:16 2013
