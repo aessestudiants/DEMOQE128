@@ -321,23 +321,58 @@
 # .code
 
 # .text
-  00000410 00000114 .text   main	(main.c)
-  00000524 00000042 .text   ADC_ISR	(main.c)
-  00000566 0000000C .text   RTC_ISR	(main.c)
-  00000572 00000002 .text   __initialize_hardware	(startcf.c)
-  00000574 00000002 .text   __initialize_system	(startcf.c)
-  00000576 0000001C .text   __copy_rom_section	(startcf.c)
-  00000592 00000034 .text   __copy_rom_sections_to_ram	(startcf.c)
-  000005C6 00000004 .text   _ExitProcess	(startcf.c)
-  000005CA 00000064 .text   clear_mem	(startcf.c)
-  0000062E 00000090 .text   _startup	(startcf.c)
-  000006BE 000001BC .text   mcf_exception_handler	(exceptions.c)
-  0000087A 00000020 .text   asm_exception_handler	(exceptions.c)
-  0000089A 0000001C .text   __call_static_initializers	(librt.a cf_staticinitia)
-  000008B6 0000002C .text   __destroy_global_chain	(librt.a cf_staticinitia)
-  000008E2 0000000C .text   _ewl_exit	(librt.a abort_exit.o   )
-#>000008F0          ___ROM_AT (linker command file)
-#>000008F0          ___DATA_ROM (linker command file)
+  00000410 000000F2 .text   main	(main.c)
+  00000502 000000D6 .text   ADC_ISR	(main.c)
+  000005D8 0000000C .text   RTC_ISR	(main.c)
+  000005E4 00000002 .text   __initialize_hardware	(startcf.c)
+  000005E6 00000002 .text   __initialize_system	(startcf.c)
+  000005E8 0000001C .text   __copy_rom_section	(startcf.c)
+  00000604 00000034 .text   __copy_rom_sections_to_ram	(startcf.c)
+  00000638 00000004 .text   _ExitProcess	(startcf.c)
+  0000063C 00000064 .text   clear_mem	(startcf.c)
+  000006A0 00000090 .text   _startup	(startcf.c)
+  00000730 000001BC .text   mcf_exception_handler	(exceptions.c)
+  000008EC 00000020 .text   asm_exception_handler	(exceptions.c)
+  0000090C 00000ADC .text   __ieee754_log	(libm.a e_log.o        )
+  000013E8 0000003A .text   log	(libm.a w_log.o        )
+  00001422 0000001C .text   __call_static_initializers	(librt.a cf_staticinitia)
+  0000143E 0000002C .text   __destroy_global_chain	(librt.a cf_staticinitia)
+  0000146A 0000003E .text   __ldivu__	(librt.a cf_runtime.o   )
+  000014A8 00000034 .text   __ldiv__	(librt.a cf_runtime.o   )
+  000014DC 0000000C .text   _ewl_exit	(librt.a abort_exit.o   )
+  000014E8 00000000 .text   _d_add	(fp_coldfire_nodiv.a dadd.o         )
+  000014E8 00000614 .text   .text	(fp_coldfire_nodiv.a dadd.o         )
+  00001718 00000000 .text   _d_sub	(fp_coldfire_nodiv.a dadd.o         )
+  00001AFC 00000000 .text   _d_cmp	(fp_coldfire_nodiv.a dcompare.o     )
+  00001AFC 0000015E .text   .text	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B06 00000000 .text   _d_cmpe	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B10 00000000 .text   _d_feq	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B16 00000000 .text   _d_fne	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B1C 00000000 .text   _d_flt	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B22 00000000 .text   _d_fle	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B28 00000000 .text   _d_fgt	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B2E 00000000 .text   _d_fge	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B38 00000000 .text   _d_fun	(fp_coldfire_nodiv.a dcompare.o     )
+  00001B3E 00000000 .text   _d_for	(fp_coldfire_nodiv.a dcompare.o     )
+  00001C5C 00000000 .text   _d_div	(fp_coldfire_nodiv.a ddiv.o         )
+  00001C5C 00000448 .text   .text	(fp_coldfire_nodiv.a ddiv.o         )
+  000020A4 00000000 .text   _d_mul	(fp_coldfire_nodiv.a dmul.o         )
+  000020A4 00000598 .text   .text	(fp_coldfire_nodiv.a dmul.o         )
+  0000263C 00000056 .text   .text	(fp_coldfire_nodiv.a dterminals.o   )
+  0000263C 00000000 .text   _fp_d_rounding	(fp_coldfire_nodiv.a dterminals.o   )
+  00002664 00000000 .text   _fp_d_underflow	(fp_coldfire_nodiv.a dterminals.o   )
+  00002678 00000000 .text   _fp_d_overflow	(fp_coldfire_nodiv.a dterminals.o   )
+  00002694 00000000 .text   _d_dtou	(fp_coldfire_nodiv.a dtou.o         )
+  00002694 00000064 .text   .text	(fp_coldfire_nodiv.a dtou.o         )
+  000026F8 00000000 .text   _d_utod	(fp_coldfire_nodiv.a int_to_d.o     )
+  000026F8 00000136 .text   .text	(fp_coldfire_nodiv.a int_to_d.o     )
+  0000273E 00000000 .text   _d_itod	(fp_coldfire_nodiv.a int_to_d.o     )
+  0000275A 00000000 .text   _d_ulltod	(fp_coldfire_nodiv.a int_to_d.o     )
+  000027EC 00000000 .text   _d_lltod	(fp_coldfire_nodiv.a int_to_d.o     )
+  00002830 00000000 .text   _fp_PA_divu16	(fp_coldfire_nodiv.a soft_division.o)
+  00002830 00000058 .text   .text	(fp_coldfire_nodiv.a soft_division.o)
+#>00002888          ___ROM_AT (linker command file)
+#>00002888          ___DATA_ROM (linker command file)
 
 # .data
 #>00800000          ___DATA_RAM (linker command file)
@@ -359,26 +394,30 @@
 # .bss
 #>00800008          ___BSS_START (linker command file)
 #>00800008          __START_SBSS (linker command file)
-#>00800008          __END_SBSS (linker command file)
-#>00800008          __START_BSS (linker command file)
-  00800008 00000004 .bss    __global_destructor_chain	(librt.a cf_staticinitia)
-#>0080000C          __END_BSS (linker command file)
-#>0080000C          ___BSS_END (linker command file)
+  00800008 00000002 .sbss   val	(main.c)
+  0080000A 00000002 .sbss   dutyy	(main.c)
+  0080000C 00000008 .sbss   zero	(libm.a e_log.o        )
+  00800014 00000004 .sbss   errno	(libc.a errno.o        )
+#>00800018          __END_SBSS (linker command file)
+#>00800018          __START_BSS (linker command file)
+  00800018 00000004 .bss    __global_destructor_chain	(librt.a cf_staticinitia)
+#>0080001C          __END_BSS (linker command file)
+#>0080001C          ___BSS_END (linker command file)
 
 # .custom
-#>0080000C          ___HEAP_START (linker command file)
-#>0080000C          ___heap_addr (linker command file)
-#>0080040C          ___HEAP_END (linker command file)
-#>0080040C          ___SP_END (linker command file)
-#>0080080C          ___SP_INIT (linker command file)
-#>0080040C          ___mem_limit (linker command file)
+#>0080001C          ___HEAP_START (linker command file)
+#>0080001C          ___heap_addr (linker command file)
+#>0080041C          ___HEAP_END (linker command file)
+#>0080041C          ___SP_END (linker command file)
+#>0080081C          ___SP_INIT (linker command file)
+#>0080041C          ___mem_limit (linker command file)
 #>00000010          ___stack_safety (linker command file)
-#>0080080C          __SP_INIT (linker command file)
-#>0080080C          ___SP_AFTER_RESET (linker command file)
-#>000008F8          _romp_at (linker command file)
+#>0080081C          __SP_INIT (linker command file)
+#>0080081C          ___SP_AFTER_RESET (linker command file)
+#>00002890          _romp_at (linker command file)
 
 # .romp
-#>000008F8          __S_romp (linker command file)
+#>00002890          __S_romp (linker command file)
 
 
 # Memory map:
@@ -487,12 +526,12 @@
   00000194 00000194 00000004 .abs_vector_101 abs_vector_101
   00000198 00000198 00000004 .abs_vector_102 abs_vector_102
   00000410 00000410 00000000 .code      code
-  00000410 00000410 000004E0 .text      code
+  00000410 00000410 00002478 .text      code
   00800000 00800000 00000000 .userram   userram
-  00800000 000008F0 00000008 .data      userram
-  00800008 00800008 00000004 .bss       userram
-  0080000C 0080000C 00000000 .custom    userram
-  0080000C 000008F8 00000018 .romp      userram
+  00800000 00002888 00000008 .data      userram
+  00800008 00800008 00000014 .bss       userram
+  0080001C 0080001C 00000000 .custom    userram
+  0080001C 00002890 00000018 .romp      userram
 
-# Link start time: Thu Apr 11 21:24:16 2013
-# Link end time: Thu Apr 11 21:24:16 2013
+# Link start time: Mon Apr 15 15:01:21 2013
+# Link end time: Mon Apr 15 15:01:21 2013

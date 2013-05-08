@@ -1,11 +1,16 @@
 #include <hidef.h> /* for EnableInterrupts macro */
 #include "derivative.h" /* include peripheral declarations */
+#include <stdio.h> 
+#include <math.h> 
+
 
 #pragma DATA_SEG _DATA_ZEROPAGE
 #pragma DATA_SEG DEFAULT
 
 int control=0;
 byte ano=1;
+word val=0;
+word dutyy=0;
 void main(void) {
 
   
@@ -53,26 +58,26 @@ void main(void) {
   
   EnableInterrupts; /* enable interrupts */
   
-  TPM1MODH = 0x09;
+  /*TPM1MODH = 0x09;
   TPM1MODL = 0x00;
   TPM1SC = 0b00101000;
   TPM1C1SC = 0x24;
   TPM1C1VH = 0x04;
-  TPM1C1VL = 0x80;
-  TPM3MODH = 0x7D;
-  TPM3MODL = 0x00;
+  TPM1C1VL = 0x80; */
+  TPM3MODH = 0x0F;
+  TPM3MODL = 0xFF;
   TPM3C0SC = 0x24;
-  TPM3C0VH = 0x19;
-  TPM3C0VL = 0x00;
+  TPM3C0VH = 0x07;
+  TPM3C0VL = 0xFF;
   TPM3SC = 0b00101000;
   PTED = 0xFF-0x40;
   TPM3C1SC = 0x24;
-  TPM3C1VH = 0x3D;
+  TPM3C1VH = 0x04;
   TPM3C1VL = 0x80;
   TPM3SC = 0b00101000;
   TPM3C2SC = 0x24;
-  TPM3C2VH = 0x29;
-  TPM3C2VL = 0xAA;
+  TPM3C2VH = 0x01;
+  TPM3C2VL = 0xFF;
   TPM3SC = 0b00101000;
   //word temp=0;
   
@@ -114,22 +119,30 @@ interrupt VectorNumber_Vadc void   ADC_ISR(void) {
     
   adc_val  = (word) (ADCRH<<8);                     // Read ADC value, clear flag
   adc_val |= (word) (ADCRL);                       // 8-bit, ignore high byte
-  /*word duty;
-  duty= (adc_val*100)/0x0FFF;
-  word MOD=0x7D00;
-  word val;
-  if (MOD>100){
-              val = (adc_val*100)/0x0FFF*(MOD/100);
+  word duty;
+  word MOD=0x0FFF;
+  val=log(0x1000-adc_val+3)*101;
+  dutyy = (word)(MOD)/(val/100);
+  /*if (MOD>100){
+              val = (word)(val*100)/0x0FFF*(MOD/100);
            }
            else {
-              val = (adc_val*100)/0x0FFF*MOD/100;
-           }                       */
-  word uu=(word)(0x05F3+adc_val);
+              val = (word)(val*100)/0x0FFF*MOD/100;
+           }     */
+   if(val<=70) val=70;        
+  TPM3C1VH = (byte) (val>>8);
+  TPM3C1VL = (byte) (val);
+  TPM3MODH = 0x0F;
+  TPM3MODL = 0xFF;
+  TPM3C0SC = 0x24; 
+  TPM3SC = 0b00101000;                   
+ /* word uu=(word)((0x05F3+100*log(adc_val+1)));
+  //word uu=(word)(1000*log10(adc_val));
   word vv= (word)(uu>>1);
   TPM1MODH = (byte) (uu>>8);
   TPM1MODL = (byte) (uu);
   TPM1C0VH = (byte) (vv>>8);
-  TPM1C0VL = (byte) (vv);
+  TPM1C0VL = (byte) (vv); */
 } 
 interrupt VectorNumber_Vrtc void   RTC_ISR(void) {
   /*if (some_key_pressed) {
